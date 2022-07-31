@@ -1,0 +1,10 @@
+[
+    {
+        "TOPIC_NAME":"1T",
+        "SUBSCRIPTION_NAME":"1S"
+    },
+    {
+        "TOPIC_NAME":"2T",
+        "SUBSCRIPTION_NAME":"2S"
+    }
+]

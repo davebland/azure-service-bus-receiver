@@ -1,0 +1,17 @@
+doctype html
+html(lang='en')
+  head
+    title ASBR
+    link(href='css/index.css' rel='stylesheet')
+    script(src="js/socket.js")
+  body
+    h1 Azure Service Bus Receiver
+    each sub, index in subscriptions
+        div
+            div.grid
+                div
+                    p= 'Subscription: ' + sub.SUBSCRIPTION_NAME
+                    p= 'Topic: ' + sub.TOPIC_NAME
+                div
+                  div.stream-container(id=index)
+                div= index + '-c3'

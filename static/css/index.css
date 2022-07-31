@@ -1,0 +1,18 @@
+html {
+    background-color: grey;
+}
+div {
+    border: 1px solid red;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.stream-container {
+    border: 1px solid blue;
+    margin: 10px;
+    max-height: 200px;
+    overflow: scroll;
+}
