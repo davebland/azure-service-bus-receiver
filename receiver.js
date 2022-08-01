@@ -1,7 +1,8 @@
 const { ServiceBusClient } = require("@azure/service-bus");
 
 class Receiver {
-	constructor(topicName, subscriptionName) {
+	constructor({queueName, topicName, subscriptionName}) {
+		this.queueName = queueName;
 		this.topicName = topicName;
 		this.subscriptionName = subscriptionName;
 	}
@@ -9,8 +10,18 @@ class Receiver {
 	sbClient = new ServiceBusClient(process.env.SERVICEBUS_CONNECTION_STRING);
 
 	async run() {
-		console.log(`Starting receiver for topic ${this.topicName} on subscription ${this.subscriptionName}.`);
-		const receiver = this.sbClient.createReceiver(this.topicName, this.subscriptionName);
+
+		let receiver;
+		console.log(this.queueName)
+
+		if (this.queueName == undefined) {
+			console.log(`Starting receiver for topic ${this.topicName} on subscription ${this.subscriptionName}.`);
+			receiver = this.sbClient.createReceiver(this.topicName, this.subscriptionName);
+		} else {
+			console.log(`Starting receiver for queue ${this.queueName}.`);
+			receiver = this.sbClient.createReceiver(this.queueName);
+		}
+
 		try {
 			const subscription = receiver.subscribe({
 				processMessage: async (brokeredMessage) => {
