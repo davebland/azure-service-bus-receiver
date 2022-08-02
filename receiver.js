@@ -1,4 +1,5 @@
 const { ServiceBusClient } = require("@azure/service-bus");
+const fs = require('fs/promises');
 
 class Receiver {
 	constructor({queueName, topicName, subscriptionName}) {
@@ -12,7 +13,6 @@ class Receiver {
 	async run() {
 
 		let receiver;
-		console.log(this.queueName)
 
 		if (this.queueName == undefined) {
 			console.log(`Starting receiver for topic ${this.topicName} on subscription ${this.subscriptionName}.`);
@@ -24,8 +24,14 @@ class Receiver {
 
 		try {
 			const subscription = receiver.subscribe({
-				processMessage: async (brokeredMessage) => {
-					console.log(`Received message: ${brokeredMessage.body}`);
+				processMessage: async (message) => {
+					// Write recieved message into buffer file & append a new line
+					console.log(`Received message: ${message.body}`);
+					message.body += '\n';
+					await fs.writeFile(`buffers/${this.queueName || this.subscriptionName}`, message.body, { flag: 'a' }, err => {
+						console.log(`Error writing message to buffer file for ${this.queueName || this.subscriptionName}: ${err}`)
+					});
+					receiver.abandonMessage(message); // Leave in queue for testing
 				},
 
 				processError: async (args) => {
@@ -34,15 +40,19 @@ class Receiver {
 				}
 			});
 
-			console.log(`Receiving messages for 20 seconds before exiting...`);
-			await delay(20000);
+			console.log(`Receiving messages for 60 seconds before exiting...`);
+			await delay(60000);
 
-			console.log(`Closing...`);
+			console.log(`Closing subscription...`);
 			await receiver.close();
 		} finally {
 			await this.sbClient.close();
 		}
 	}
+}
+
+function delay(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 module.exports = Receiver;

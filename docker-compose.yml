@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  azure-service-bus-receiver:
+    container_name: azure-service-bus-receiver
+    build: .
+    command: npm run dev
+    restart: always
+    volumes:
+      - ./:/home/node/app
+      - /home/node/app/node_modules
+    environment:
+      NODE_ENV: ${NODEJS_ENV}
+    ports:
+      - "3000:3000"
+    # networks:
+    #   - shared
+
+networks:
+  shared:
+    external: true
+    name: shared_network

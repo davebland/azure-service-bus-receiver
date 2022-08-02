@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js 0.0.0.0 3000"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +17,8 @@
     "express-ws": "^5.0.2",
     "pug": "^3.0.2",
     "tailing-stream": "^0.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }

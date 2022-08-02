@@ -1,8 +1,9 @@
 html {
-    background-color: grey;
+    background-color: lightgreen;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-div {
-    border: 1px solid red;
+h1 {
+    text-align: center;
 }
 
 .grid {
@@ -12,7 +13,18 @@ div {
 
 .stream-container {
     border: 1px solid blue;
-    margin: 10px;
-    max-height: 200px;
+    border-radius: 5px;
+    padding: 10px;
+    height: 200px;
+    width: 500px;
     overflow: scroll;
+}
+
+.stream-container p {
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.sub-details {
+    text-align: center;
 }

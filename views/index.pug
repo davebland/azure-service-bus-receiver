@@ -7,11 +7,20 @@ html(lang='en')
   body
     h1 Azure Service Bus Receiver
     each sub, index in subscriptions
-        div
-            div.grid
-                div
-                    p= 'Subscription: ' + sub.SUBSCRIPTION_NAME
-                    p= 'Topic: ' + sub.TOPIC_NAME
-                div
-                  div.stream-container(id=sub.SUBSCRIPTION_NAME)
-                div= index + '-c3'
+      div
+        div.grid
+          div.sub-details
+              p= 'Subscription: ' + sub.SUBSCRIPTION_NAME
+              p= 'Topic: ' + sub.TOPIC_NAME
+          div
+            div.stream-container(id=sub.SUBSCRIPTION_NAME)
+          div
+    each q, index in queues
+      div
+        div.grid
+          div.sub-details
+              p= 'Queue: '
+                strong= q.QUEUE_NAME
+          div
+            div.stream-container(id=q.QUEUE_NAME)
+          div

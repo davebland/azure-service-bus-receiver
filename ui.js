@@ -20,7 +20,7 @@ server.ws('/streams/:subscription', function(ws, req) {
   sub = req.params.subscription;
   ws.send(`Stream for ${sub}`);
 
-  const readStream = TailingReadableStream.createReadStream(`${__dirname}/buffers/${sub}.json`, {timeout: 0});
+  const readStream = TailingReadableStream.createReadStream(`buffers/${sub}`, {timeout: 0});
   const readInterface = readline.createInterface({input: readStream});
 
   readInterface.on('line', function(data) {
